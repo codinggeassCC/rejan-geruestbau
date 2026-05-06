@@ -1,0 +1,60 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images"
+public_folder: "/images"
+
+locale: de
+
+collections:
+  - name: "galerie"
+    label: "Galerie"
+    files:
+      - label: "Hochbaugerüst — Bilder verwalten"
+        name: "hochbau"
+        file: "_data/gallery.json"
+        format: json
+        fields:
+          - label: "Bilder"
+            name: "images"
+            widget: "list"
+            label_singular: "Bild"
+            summary: "{{fields.alt}}"
+            fields:
+              - label: "Bild hochladen"
+                name: "src"
+                widget: "image"
+              - label: "Beschreibung (optional)"
+                name: "alt"
+                widget: "string"
+                default: "Hochbaugerüst Projekt"
+                required: false
+
+  - name: "einstellungen"
+    label: "Firmeneinstellungen"
+    files:
+      - label: "Kontaktdaten"
+        name: "kontakt"
+        file: "_data/company.json"
+        format: json
+        fields:
+          - label: "Telefonnummer"
+            name: "phone"
+            widget: "string"
+            hint: "z.B. +41 56 544 53 09"
+          - label: "Telefon-Link (kein Leerzeichen)"
+            name: "phone_link"
+            widget: "string"
+            hint: "z.B. +41565445309"
+          - label: "E-Mail-Adresse"
+            name: "email"
+            widget: "string"
+          - label: "Strasse und Nummer"
+            name: "address"
+            widget: "string"
+            hint: "z.B. Mellingerstrasse 174"
+          - label: "PLZ und Ort"
+            name: "city"
+            widget: "string"
+            hint: "z.B. CH-5400 Baden AG"
