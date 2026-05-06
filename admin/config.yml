@@ -23,12 +23,11 @@ collections:
             widget: "list"
             label_singular: "Bild"
             summary: "{{fields.src}}"
-            minimize_collapsed: true
             fields:
-              - label: "Dateiname (z.B. hoch1.jpeg) oder neues Bild hochladen"
+              - label: "Dateiname (z.B. hoch1.jpeg)"
                 name: "src"
                 widget: "string"
-                hint: "Dateiname des Bildes. Neues Bild zuerst über 'Medien' hochladen, dann Dateiname hier eintragen."
+                hint: "Neues Bild zuerst über 'Medien' hochladen, dann den Dateinamen hier eintragen."
               - label: "Beschreibung"
                 name: "alt"
                 widget: "string"
