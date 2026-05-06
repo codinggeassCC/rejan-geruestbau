@@ -22,7 +22,9 @@ collections:
             name: "images"
             widget: "list"
             label_singular: "Bild"
-            summary: "{{fields.alt}}"
+            summary: "{{fields.src}}"
+            minimize_collapsed: true
+            collapsed: true
             fields:
               - label: "Bild hochladen"
                 name: "src"
