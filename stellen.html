@@ -300,12 +300,13 @@ img { image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; 
 <section class="section" style="padding:150px 6% 100px; min-height:60vh;">
 <h1 style="text-align:center; font-family:\'Playfair Display\', serif; font-size:42px; margin-bottom:40px;">Stellen & Karriere</h1>
 
-<div style="max-width:800px; margin: 0 auto; text-align: center;">
-    <p style="font-size:18px; margin-bottom:40px; color:var(--mid, #666); line-height:1.6;">Wir suchen motivierte Fachkräfte, die mit uns gemeinsam Grosses erreichen wollen. Bei uns erwartet Sie ein starkes Team, spannende Projekte im ganzen Kanton Aargau und modernste Ausrüstung.</p>
-    
-    <div style="padding:40px; border:2px dashed var(--border, #ccc); background:var(--off, #f9f9f9); text-align:center;">
+<div id="stellen-section" style="max-width:800px; margin: 0 auto; text-align: center;">
+    <p id="stellen-intro" style="font-size:18px; margin-bottom:40px; color:var(--mid, #666); line-height:1.6;">Wir suchen motivierte Fachkräfte, die mit uns gemeinsam Grosses erreichen wollen. Bei uns erwartet Sie ein starkes Team, spannende Projekte im ganzen Kanton Aargau und modernste Ausrüstung.</p>
+    <div id="stellen-content">
+      <div style="padding:40px; border:2px dashed var(--border, #ccc); background:var(--off, #f9f9f9); text-align:center;">
         <p style="font-weight:600; color:var(--red, #c94b18); font-size:20px;">Aktuell sind keine Stellen offen.</p>
-        <p style="margin-top:15px; color:var(--mid, #666); line-height:1.5;">Wir freuen uns dennoch jederzeit über Ihre aussagekräftige Initiativbewerbung.<br>Senden Sie Ihre Unterlagen gerne an <strong>info@rejan-geruestbau.ch</strong>.</p>
+        <p style="margin-top:15px; color:var(--mid, #666); line-height:1.5;">Wir freuen uns dennoch jederzeit über Ihre aussagekräftige Initiativbewerbung.<br>Senden Sie Ihre Unterlagen gerne an <strong>info@rejan-geruestebau.ch</strong>.</p>
+      </div>
     </div>
 </div>
 
@@ -367,5 +368,23 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
 });
 </script>
-</body>
+<script>
+fetch('_data/stellen.json').then(function(r){return r.json();}).then(function(d){
+  var intro=document.getElementById('stellen-intro');
+  if(intro&&d.intro)intro.textContent=d.intro;
+  var box=document.getElementById('stellen-content');
+  if(!box)return;
+  if(d.status==='open'&&d.jobs&&d.jobs.length>0){
+    box.innerHTML=d.jobs.map(function(j){
+      return '<div style="margin-bottom:24px;padding:28px 32px;background:#fff;border:1px solid var(--border,#eee);text-align:left">'+
+        '<h3 style="font-family:\'Playfair Display\',serif;font-size:1.25rem;font-weight:700;margin-bottom:10px">'+j.title+'</h3>'+
+        '<p style="color:var(--mid,#666);line-height:1.75;white-space:pre-line">'+j.description+'</p>'+
+        (j.requirements?'<p style="margin-top:12px;color:var(--mid,#666);font-size:.9rem"><strong>Anforderungen:</strong> '+j.requirements+'</p>':'')+
+        '</div>';
+    }).join('');
+  }else if(d.status==='open'){
+    box.innerHTML='<div style="padding:40px;border:2px dashed var(--border,#ccc);background:var(--off,#f9f9f9);text-align:center"><p style="font-weight:600;color:var(--dark,#111);font-size:20px">Wir freuen uns auf Ihre Bewerbung!</p><p style="margin-top:15px;color:var(--mid,#666)">Senden Sie Ihre Unterlagen an <strong>info@rejan-geruestebau.ch</strong></p></div>';
+  }
+}).catch(function(){});
+</script></body>
 </html>

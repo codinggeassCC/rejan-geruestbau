@@ -8,10 +8,12 @@ public_folder: "/images"
 locale: de
 
 collections:
-  - name: "galerie"
-    label: "Galerie"
+
+  # ── GALERIE ────────────────────────────────────────────────────────────────
+  - name: "galerie-hoch"
+    label: "Galerie — Hochbaugerüst"
     files:
-      - label: "Hochbaugerüst — Bilder verwalten"
+      - label: "Bilder verwalten"
         name: "hochbau"
         file: "_data/gallery.json"
         format: json
@@ -25,36 +27,238 @@ collections:
               - label: "Bild hochladen"
                 name: "src"
                 widget: "image"
-              - label: "Beschreibung (optional)"
+              - label: "Beschreibung"
                 name: "alt"
                 widget: "string"
                 default: "Hochbaugerüst Projekt"
                 required: false
 
+  - name: "galerie-spezial"
+    label: "Galerie — Spezialgerüst"
+    files:
+      - label: "Bilder verwalten"
+        name: "spezial"
+        file: "_data/spezial-gallery.json"
+        format: json
+        fields:
+          - label: "Bilder"
+            name: "images"
+            widget: "list"
+            label_singular: "Bild"
+            summary: "{{fields.alt}}"
+            fields:
+              - label: "Bild hochladen"
+                name: "src"
+                widget: "image"
+              - label: "Beschreibung"
+                name: "alt"
+                widget: "string"
+                default: "Spezialgerüst Projekt"
+                required: false
+
+  # ── STELLEN ────────────────────────────────────────────────────────────────
+  - name: "stellen"
+    label: "Stellen & Karriere"
+    files:
+      - label: "Stellenangebote verwalten"
+        name: "stellen"
+        file: "_data/stellen.json"
+        format: json
+        fields:
+          - label: "Einleitungstext"
+            name: "intro"
+            widget: "text"
+            hint: "Der Text oben auf der Seite über den Stellen."
+          - label: "Status"
+            name: "status"
+            widget: "select"
+            options:
+              - label: "Keine offenen Stellen"
+                value: "closed"
+              - label: "Stellen offen"
+                value: "open"
+            default: "closed"
+          - label: "Stellenangebote"
+            name: "jobs"
+            widget: "list"
+            label_singular: "Stelle"
+            summary: "{{fields.title}}"
+            hint: "Nur sichtbar wenn Status auf 'Stellen offen' gesetzt ist."
+            fields:
+              - label: "Berufsbezeichnung"
+                name: "title"
+                widget: "string"
+              - label: "Stellenbeschreibung"
+                name: "description"
+                widget: "text"
+              - label: "Anforderungen (optional)"
+                name: "requirements"
+                widget: "string"
+                required: false
+
+  # ── SEITEN ─────────────────────────────────────────────────────────────────
+  - name: "seiten"
+    label: "Seiteninhalte"
+    files:
+
+      - label: "Startseite"
+        name: "index"
+        file: "_data/index.json"
+        format: json
+        fields:
+          - label: "Hero-Bild ersetzen"
+            name: "hero_image"
+            widget: "image"
+            required: false
+            hint: "Leer lassen um das aktuelle Bild zu behalten."
+          - label: "Kleine Überschrift (oben)"
+            name: "hero_eyebrow"
+            widget: "string"
+            hint: "z.B. Baden AG · Schweiz · Seit 2021"
+          - label: "Haupttitel"
+            name: "hero_h1"
+            widget: "string"
+          - label: "Untertitel"
+            name: "hero_sub"
+            widget: "text"
+          - label: "Stat 1 — Zahl"
+            name: "stat1_num"
+            widget: "string"
+            hint: "z.B. 14+"
+          - label: "Stat 1 — Beschriftung"
+            name: "stat1_label"
+            widget: "string"
+            hint: "z.B. Jahre Erfahrung"
+          - label: "Stat 2 — Zahl"
+            name: "stat2_num"
+            widget: "string"
+            hint: "z.B. 282"
+          - label: "Stat 2 — Beschriftung"
+            name: "stat2_label"
+            widget: "string"
+          - label: "Stat 3 — Zahl"
+            name: "stat3_num"
+            widget: "string"
+          - label: "Stat 3 — Beschriftung"
+            name: "stat3_label"
+            widget: "string"
+
+      - label: "Hochbaugerüst"
+        name: "hochbaugeruest"
+        file: "_data/hochbaugeruest-content.json"
+        format: json
+        fields:
+          - label: "Hero-Bild ersetzen"
+            name: "hero_image"
+            widget: "image"
+            required: false
+            hint: "Leer lassen um das aktuelle Bild zu behalten."
+          - label: "Seitentitel"
+            name: "hero_h1"
+            widget: "string"
+          - label: "Hero-Untertitel"
+            name: "hero_sub"
+            widget: "text"
+          - label: "Abschnittstitel"
+            name: "section_h2"
+            widget: "string"
+          - label: "Abschnittsbeschreibung"
+            name: "section_desc"
+            widget: "text"
+
+      - label: "Spezialgerüst"
+        name: "spezialgeruest"
+        file: "_data/spezialgeruest-content.json"
+        format: json
+        fields:
+          - label: "Hero-Bild ersetzen"
+            name: "hero_image"
+            widget: "image"
+            required: false
+            hint: "Leer lassen um das aktuelle Bild zu behalten."
+          - label: "Hero-Untertitel"
+            name: "hero_sub"
+            widget: "text"
+          - label: "Abschnittstitel"
+            name: "section_h2"
+            widget: "string"
+          - label: "Abschnittsbeschreibung"
+            name: "section_desc"
+            widget: "text"
+          - widget: "object"
+            label: "Bauvisiere"
+            name: "bauvisiere"
+            collapsed: true
+            fields:
+              - {label: "Titel", name: "bauvisiere_h3", widget: "string"}
+              - {label: "Text", name: "bauvisiere_text", widget: "text"}
+              - {label: "Zitat", name: "bauvisiere_tagline", widget: "string"}
+          - widget: "object"
+            label: "Flächengerüste"
+            name: "flaechengeruest"
+            collapsed: true
+            fields:
+              - {label: "Titel", name: "flaechengeruest_h3", widget: "string"}
+              - {label: "Text", name: "flaechengeruest_text", widget: "text"}
+          - widget: "object"
+            label: "Treppensysteme"
+            name: "treppen"
+            collapsed: true
+            fields:
+              - {label: "Titel", name: "treppen_h3", widget: "string"}
+              - {label: "Text", name: "treppen_text", widget: "text"}
+              - {label: "Zitat", name: "treppen_tagline", widget: "string"}
+          - widget: "object"
+            label: "CD-Trägersysteme"
+            name: "cdtraeger"
+            collapsed: true
+            fields:
+              - {label: "Titel", name: "cdtraeger_h3", widget: "string"}
+              - {label: "Text", name: "cdtraeger_text", widget: "text"}
+          - widget: "object"
+            label: "Brücken und Passerellen"
+            name: "bruecken"
+            collapsed: true
+            fields:
+              - {label: "Titel", name: "bruecken_h3", widget: "string"}
+              - {label: "Text", name: "bruecken_text", widget: "text"}
+              - {label: "Zitat", name: "bruecken_tagline", widget: "string"}
+          - widget: "object"
+            label: "Leichte Dienstbrücken"
+            name: "dienstbruecke"
+            collapsed: true
+            fields:
+              - {label: "Titel", name: "dienstbruecke_h3", widget: "string"}
+              - {label: "Text", name: "dienstbruecke_text", widget: "text"}
+              - {label: "Zitat", name: "dienstbruecke_tagline", widget: "string"}
+
+  # ── FIRMENEINSTELLUNGEN ────────────────────────────────────────────────────
   - name: "einstellungen"
     label: "Firmeneinstellungen"
     files:
-      - label: "Kontaktdaten"
+      - label: "Kontaktdaten & Bürozeiten"
         name: "kontakt"
         file: "_data/company.json"
         format: json
         fields:
-          - label: "Telefonnummer"
+          - label: "Telefonnummer (Anzeige)"
             name: "phone"
             widget: "string"
             hint: "z.B. +41 56 544 53 09"
-          - label: "Telefon-Link (kein Leerzeichen)"
+          - label: "Telefonnummer (Link, ohne Leerzeichen)"
             name: "phone_link"
             widget: "string"
             hint: "z.B. +41565445309"
           - label: "E-Mail-Adresse"
             name: "email"
             widget: "string"
-          - label: "Strasse und Nummer"
+          - label: "Strasse und Hausnummer"
             name: "address"
             widget: "string"
-            hint: "z.B. Mellingerstrasse 174"
           - label: "PLZ und Ort"
             name: "city"
             widget: "string"
-            hint: "z.B. CH-5400 Baden AG"
+          - label: "Bürozeiten"
+            name: "hours"
+            widget: "string"
+            hint: "z.B. Montag – Freitag: 07:30 – 17:30"
